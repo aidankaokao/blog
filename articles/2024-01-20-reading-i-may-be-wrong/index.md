@@ -38,7 +38,7 @@ draft: false
 
 ## 覺察
 
-第一次接觸到「覺察」這個詞是大學時在宿舍偶然看到印度哲學家克里希那穆提在其著作《[生命之書：365 日的靜心冥想](https://www.books.com.tw/products/0010291858)》中提到如何對待當下產生的暴躁情緒。「覺察」這個詞非常有意思的是它有種以第三人視角來觀察自己所產生出的各種念頭，類似看電影的感覺，無論電影內容多麼高潮迭起，我們總以過客的角度來看這部電影的開始到結束。
+第一次接觸到「覺察」這個詞是大學時在宿舍偶然看到印度哲學家克里希那穆提在其著作《[生命之書：365 日的靜心冥想](https://www.eslite.com/product/1001127581002084?attr=vgHwvQoMCKGOxs4GEKHmlJ4DEAEaJDY5ZjczM2EyLTAwMDAtMjZmYS1hZTI0LTEwZDlhMjIwZTRjNipANzUyNWMwN2NhYjY5NDQxYTY2YmI4MmQ3OTI2M2UwNWYzZWIxNTAzZTdmZDFkNGRhMjY2MWMyMDQyYmJjNGI5ZjIonNa3LceW8DDUsp0Vn9a3LcmW8DCOvp0VwvCeFajlqi2Q97Iwt7eMLToOZGVmYXVsdF9zZWFyY2hAAUgBWAFoAXoCdHA)》中提到如何對待當下產生的暴躁情緒。「覺察」這個詞非常有意思的是它有種以第三人視角來觀察自己所產生出的各種念頭，類似看電影的感覺，無論電影內容多麼高潮迭起，我們總以過客的角度來看這部電影的開始到結束。
 
 而「覺察」很重要的一個因素是我們盡量不去干預，就像壞的念頭產生，我們就讓它出現以及結束。允許它出現，同時等待它消失，這也是冥想的實際行動中我們可操作的部分，過去總是想抑制念頭的出現，所以總會失敗，「**允許它出現，等待它消失**。」
 
@@ -66,7 +66,7 @@ draft: false
 
 而既然我們要擺脫「應該」這種執念，又該用什麼角度去對待這個世界呢？「信任」永遠是最好的方式，我們要學會用信任來面對各種事物，就像我們覺察念頭一樣。我們信任他人、信任上天、信任自然，最重要的是信任自己。「信任」表示我們不會去依執念或自我意識去控制任何事情，而奇蹟總會出現在此時。
 
-我們的念頭產生往往有個前提，多是來自於過往經歷與對未來的期盼，既然念頭並非事實，也代表「過去」與「未來」不是我們該注意的焦點。高中時看過一本《秘密》，書中讓我印象最深刻的就是「當下」才是最重要的，當時還懵懵懂懂、一知半解，直到後來才漸漸意識到，原來我們頭腦中出現的各種想法多來自回憶與對未來的期望，回憶讓我們後悔、經歷賦予我們有框架的行動與信心、未來則是我們的盼望以及對未來的擔憂，這些都可涵蓋在本文討論的關鍵字「念頭」當中。
+我們的念頭產生往往有個前提，多是來自於過往經歷與對未來的期盼，既然念頭並非事實，也代表「過去」與「未來」不是我們該注意的焦點。高中時看過一本《[秘密](https://www.eslite.com/product/1001112701700708?attr=vgHwvQoMCOuOxs4GEKu4sK8BEAEaJDY5ZGZkNTQwLTAwMDAtMmQyNC1hZjQ4LWY0ZjVlODAzZmY2MCpANzUyNWMwN2NhYjY5NDQxYTY2YmI4MmQ3OTI2M2UwNWYzZWIxNTAzZTdmZDFkNGRhMjY2MWMyMDQyYmJjNGI5ZjIoqOWqLY6-nRXUsp0VwvCeFZzWty2f1rcttreMLcmW8DDHlvAwkPeyMDoOZGVmYXVsdF9zZWFyY2hIAVgBYAFoAXoCdHA)》，書中讓我印象最深刻的就是「當下」才是最重要的，當時還懵懵懂懂、一知半解，直到後來才漸漸意識到，原來我們頭腦中出現的各種想法多來自回憶與對未來的期望，回憶讓我們後悔、經歷賦予我們有框架的行動與信心、未來則是我們的盼望以及對未來的擔憂，這些都可涵蓋在本文討論的關鍵字「念頭」當中。
 
 但我們對後悔的回憶以及不可掌握的未來無法產生具體的行動，那麼就只有連接過去與未來的「當下」是證明我們存在的唯一空間，也是我們可以「選擇做」以及「實際做」的唯一地方。
 
