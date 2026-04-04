@@ -1,0 +1,66 @@
+/* ==========================================================
+   Light / Dark Theme System
+   Light: pastel gradient + frosted glass — fresh, dreamy
+   Dark:  deep blue gradient + golden glass — premium
+   ========================================================== */
+
+:root,
+html[data-theme="light"] {
+  --season-primary: #0284c7;
+  --season-primary-light: #7dd3fc;
+  --season-secondary: #e0f2fe;
+  --season-accent: #0ea5e9;
+  --season-bg: #e8eef5;
+  --season-bg-gradient: linear-gradient(135deg,
+    #ddd6f3 0%,
+    #d4e4f7 20%,
+    #cfe8e0 40%,
+    #e0f2fe 60%,
+    #f0e6f6 80%,
+    #dde8f0 100%
+  );
+  --season-surface: #ffffff;
+  --season-text: #1a1a2e;
+  --season-text-muted: #5a6078;
+  --season-border: rgba(2, 132, 199, 0.08);
+  --season-glass-bg: rgba(255, 255, 255, 0.5);
+  --season-glass-border: rgba(255, 255, 255, 0.7);
+  --season-glass-shadow: 0 8px 32px rgba(100, 120, 160, 0.12), 0 2px 8px rgba(100, 120, 160, 0.06);
+  --season-glass-shadow-hover: 0 16px 48px rgba(100, 120, 160, 0.18), 0 4px 12px rgba(100, 120, 160, 0.1);
+  --season-glass-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.8), inset 0 -1px 1px rgba(255, 255, 255, 0.2);
+  --season-particle-1: rgba(200, 210, 240, 0.4);
+  --season-particle-2: rgba(210, 230, 220, 0.3);
+  --season-particle-3: rgba(230, 210, 240, 0.25);
+  --season-shadow: rgba(100, 120, 160, 0.1);
+  --season-code-bg: rgba(255, 255, 255, 0.6);
+}
+
+html[data-theme="dark"] {
+  --season-primary: #d4a853;
+  --season-primary-light: #e8c778;
+  --season-secondary: #1e293b;
+  --season-accent: #f0c956;
+  --season-bg: #0a0e1a;
+  --season-bg-gradient: linear-gradient(135deg,
+    #0a0e1a 0%,
+    #111833 20%,
+    #0d1525 40%,
+    #151c30 60%,
+    #12182d 80%,
+    #0e1322 100%
+  );
+  --season-surface: #152238;
+  --season-text: #e2e8f0;
+  --season-text-muted: #8892a8;
+  --season-border: rgba(212, 168, 83, 0.1);
+  --season-glass-bg: rgba(20, 30, 55, 0.65);
+  --season-glass-border: rgba(255, 255, 255, 0.08);
+  --season-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --season-glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --season-glass-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.06), inset 0 -1px 1px rgba(255, 255, 255, 0.02);
+  --season-particle-1: rgba(212, 168, 83, 0.15);
+  --season-particle-2: rgba(232, 199, 120, 0.1);
+  --season-particle-3: rgba(240, 201, 86, 0.08);
+  --season-shadow: rgba(0, 0, 0, 0.3);
+  --season-code-bg: rgba(20, 30, 55, 0.7);
+}

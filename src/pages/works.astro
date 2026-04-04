@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GlassCard from '../components/GlassCard.astro';
+import works from '../data/works.json';
+---
+
+<BaseLayout title="Works" description="A collection of my projects and works">
+  <div class="w-full px-6 lg:px-12 xl:px-20 py-10">
+    <div class="mb-8" data-animate>
+      <h1 class="text-3xl font-bold" style="color: var(--season-primary);">
+        Works
+      </h1>
+      <p class="mt-2 text-sm" style="color: var(--season-text-muted);">
+        {works.length} project{works.length !== 1 ? 's' : ''}
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {works.map((work, index) => (
+        <a
+          href={work.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block group"
+          data-animate
+          data-animate-delay={Math.min(index + 1, 5)}
+        >
+          <GlassCard hover class="p-6 h-full">
+            <div class="flex flex-col gap-3 h-full">
+              <!-- Title -->
+              <h3
+                class="text-lg font-semibold leading-snug transition-colors duration-200"
+                style="color: var(--season-text);"
+              >
+                <span class="group-hover:underline decoration-2 underline-offset-4" style="text-decoration-color: var(--season-primary-light);">
+                  {work.title}
+                </span>
+              </h3>
+
+              <!-- Description -->
+              <p class="text-sm leading-relaxed flex-1" style="color: var(--season-text-muted);">
+                {work.description}
+              </p>
+
+              <!-- Tags -->
+              {work.tags && work.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-1">
+                  {work.tags.map((tag: string) => (
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                      style={`background: var(--season-glass-bg); color: var(--season-primary); border: 1px solid var(--season-glass-border);`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <!-- External link indicator -->
+              <div
+                class="flex items-center gap-1 text-sm font-medium mt-1 transition-transform duration-200 group-hover:translate-x-1"
+                style="color: var(--season-primary);"
+              >
+                <span>View project</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </div>
+            </div>
+          </GlassCard>
+        </a>
+      ))}
+    </div>
+
+    {works.length === 0 && (
+      <div class="text-center py-12" data-animate>
+        <p class="text-lg" style="color: var(--season-text-muted);">
+          No works yet. Stay tuned!
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleList from '../components/ArticleList.astro';
+
+const articles = (await getCollection('articles'))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const allTags = [...new Set(articles.flatMap((a) => a.data.tags || []))].sort();
+---
+
+<BaseLayout>
+  <div class="w-full px-6 lg:px-12 xl:px-20 py-10">
+    <div class="mb-8" data-animate>
+      <h1 class="text-3xl font-bold" style="color: var(--season-primary);">
+        Articles
+      </h1>
+      <p class="mt-2 text-sm" style="color: var(--season-text-muted);">
+        {articles.length} article{articles.length !== 1 ? 's' : ''} published
+      </p>
+    </div>
+
+    <!-- Tag filter -->
+    {allTags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-8" data-animate data-animate-delay="1">
+        <button
+          class="tag-filter active px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200"
+          data-tag="all"
+        >
+          All
+        </button>
+        {allTags.map((tag) => (
+          <button
+            class="tag-filter px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200"
+            data-tag={tag}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <div id="articles-grid">
+      <ArticleList articles={articles} />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-filter {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    color: var(--season-text-muted);
+    border: 1px solid var(--season-glass-border);
+    cursor: pointer;
+  }
+  .tag-filter:hover,
+  .tag-filter.active {
+    background: var(--season-primary);
+    color: white;
+    border-color: var(--season-primary);
+  }
+</style>
+
+<script is:inline>
+  function initTagFilter() {
+    var buttons = document.querySelectorAll('.tag-filter');
+    var cards = document.querySelectorAll('#articles-grid a[href]');
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        buttons.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        var tag = btn.getAttribute('data-tag');
+        cards.forEach(function(card) {
+          if (tag === 'all') {
+            card.style.display = '';
+          } else {
+            var tagEls = card.querySelectorAll('span.inline-flex');
+            var hasTag = Array.from(tagEls).some(function(el) {
+              return el.textContent.trim() === tag;
+            });
+            card.style.display = hasTag ? '' : 'none';
+          }
+        });
+      });
+    });
+  }
+  initTagFilter();
+  document.addEventListener('astro:after-swap', initTagFilter);
+</script>

@@ -1,0 +1,82 @@
+---
+import GlassCard from './GlassCard.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  slug: string;
+  index?: number;
+}
+
+const { title, description, date, tags = [], slug, index = 0 } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const formattedDate = date.toLocaleDateString('zh-TW', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a
+  href={`${base}/articles/${slug}/`}
+  class="block group"
+  data-animate
+  data-animate-delay={Math.min(index + 1, 5)}
+>
+  <GlassCard hover class="p-6">
+    <div class="flex flex-col gap-3">
+      <!-- Date -->
+      <time
+        datetime={date.toISOString()}
+        class="text-xs font-medium"
+        style="color: var(--season-text-muted);"
+      >
+        {formattedDate}
+      </time>
+
+      <!-- Title -->
+      <h3
+        class="text-lg font-semibold leading-snug transition-colors duration-200"
+        style="color: var(--season-text);"
+        transition:name={`title-${slug}`}
+      >
+        <span class="group-hover:underline decoration-2 underline-offset-4" style="text-decoration-color: var(--season-primary-light);">
+          {title}
+        </span>
+      </h3>
+
+      <!-- Description -->
+      <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--season-text-muted);">
+        {description}
+      </p>
+
+      <!-- Tags -->
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-1">
+          {tags.map((tag) => (
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+              style={`background: var(--season-glass-bg); color: var(--season-primary); border: 1px solid var(--season-glass-border);`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <!-- Read more arrow -->
+      <div
+        class="flex items-center gap-1 text-sm font-medium mt-1 transition-transform duration-200 group-hover:translate-x-1"
+        style="color: var(--season-primary);"
+      >
+        <span>Read more</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </div>
+  </GlassCard>
+</a>

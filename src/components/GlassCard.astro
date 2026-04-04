@@ -1,0 +1,43 @@
+---
+interface Props {
+  class?: string;
+  hover?: boolean;
+  as?: string;
+}
+
+const { class: className = '', hover = false, as: Tag = 'div' } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'glass-card rounded-2xl transition-all duration-300',
+    hover && 'glass-card-hover cursor-pointer',
+    className,
+  ]}
+>
+  <slot />
+</Tag>
+
+<style>
+  .glass-card {
+    background: var(--season-glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--season-glass-border);
+    box-shadow:
+      var(--season-glass-shadow),
+      var(--season-glass-highlight);
+  }
+
+  .glass-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      var(--season-glass-shadow-hover),
+      var(--season-glass-highlight);
+    border-color: rgba(255, 255, 255, 0.9);
+  }
+
+  :global(html[data-theme="dark"]) .glass-card-hover:hover {
+    border-color: rgba(212, 168, 83, 0.2);
+  }
+</style>

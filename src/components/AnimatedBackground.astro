@@ -1,0 +1,115 @@
+---
+// Ambient animated background
+// Light mode: soft floating bubbles/orbs with sky blue tones
+// Dark mode: gentle golden sparkles / floating motes
+---
+
+<div id="animated-bg" class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true"></div>
+
+<style>
+  @keyframes float-up {
+    0% {
+      transform: translateY(105vh) translateX(0) scale(0.8);
+      opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 0.8; }
+    100% {
+      transform: translateY(-10vh) translateX(60px) scale(1.1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(15px) translateY(-10px); }
+    50% { transform: translateX(-10px) translateY(5px); }
+    75% { transform: translateX(20px) translateY(-15px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.15); }
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform, opacity;
+  }
+
+  .particle-orb {
+    animation: float-up linear infinite;
+  }
+
+  .particle-sparkle {
+    animation: pulse-glow ease-in-out infinite;
+  }
+
+  .particle-mote {
+    animation: drift ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .particle { display: none; }
+  }
+</style>
+
+<script is:inline>
+  function createParticles() {
+    var container = document.getElementById('animated-bg');
+    if (!container) return;
+    container.innerHTML = '';
+
+    var theme = document.documentElement.getAttribute('data-theme') || 'light';
+    var root = getComputedStyle(document.documentElement);
+    var colors = [
+      root.getPropertyValue('--season-particle-1').trim(),
+      root.getPropertyValue('--season-particle-2').trim(),
+      root.getPropertyValue('--season-particle-3').trim(),
+    ];
+
+    var config;
+    if (theme === 'dark') {
+      config = [
+        { count: 4, className: 'particle-sparkle', sizeRange: [2, 5], durationRange: [4, 8] },
+        { count: 3, className: 'particle-mote', sizeRange: [2, 3], durationRange: [10, 18] },
+      ];
+    } else {
+      config = [
+        { count: 5, className: 'particle-orb', sizeRange: [8, 20], durationRange: [20, 35] },
+        { count: 3, className: 'particle-mote', sizeRange: [4, 10], durationRange: [14, 24] },
+      ];
+    }
+
+    config.forEach(function(c) {
+      for (var i = 0; i < c.count; i++) {
+        var el = document.createElement('div');
+        var size = c.sizeRange[0] + Math.random() * (c.sizeRange[1] - c.sizeRange[0]);
+        var duration = c.durationRange[0] + Math.random() * (c.durationRange[1] - c.durationRange[0]);
+        var delay = Math.random() * duration;
+        var left = Math.random() * 100;
+        var top = Math.random() * 100;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+
+        el.className = 'particle ' + c.className;
+        el.style.cssText =
+          'width:' + size + 'px;height:' + size + 'px;' +
+          'left:' + left + '%;' +
+          'top:' + (c.className === 'particle-orb' ? '100%' : top + '%') + ';' +
+          'background:' + color + ';' +
+          'animation-duration:' + duration + 's;' +
+          'animation-delay:' + delay + 's;';
+
+        if (theme === 'dark' && c.className === 'particle-sparkle') {
+          el.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + size + 'px ' + color;
+        }
+
+        container.appendChild(el);
+      }
+    });
+  }
+
+  createParticles();
+  document.addEventListener('astro:after-swap', createParticles);
+</script>

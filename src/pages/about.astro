@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GlassCard from '../components/GlassCard.astro';
+import profile from '../data/profile.json';
+import skills from '../data/skills.json';
+---
+
+<BaseLayout title="About" description={`About ${profile.name}`}>
+  <div class="w-full px-6 lg:px-12 xl:px-20 py-10">
+    <h1
+      class="text-3xl font-bold mb-8"
+      style="color: var(--season-primary);"
+      data-animate
+    >
+      About
+    </h1>
+
+    <div class="flex flex-col gap-6">
+      <!-- Profile + About side by side in one outer card -->
+      <GlassCard class="p-6" data-animate data-animate-delay="1">
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- Left: Profile card -->
+          <div class="lg:w-1/3 shrink-0">
+            <GlassCard class="p-6 h-full">
+              <div class="flex flex-col items-center gap-3 text-center">
+                <div class="w-20 h-20 rounded-full overflow-hidden border-2 shadow-md" style="border-color: var(--season-primary-light);">
+                  <img
+                    src={profile.avatar}
+                    alt={profile.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <h2 class="text-base font-semibold" style="color: var(--season-primary);">
+                    {profile.name}
+                  </h2>
+                  {profile.tagline && (
+                    <p class="mt-0.5 text-xs" style="color: var(--season-text-muted);">
+                      {profile.tagline}
+                    </p>
+                  )}
+                </div>
+                <p class="text-xs leading-relaxed" style="color: var(--season-text);">
+                  {profile.bio}
+                </p>
+                {profile.location && (
+                  <div class="flex items-center gap-1 text-xs" style="color: var(--season-text-muted);">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{profile.location}</span>
+                  </div>
+                )}
+              </div>
+            </GlassCard>
+          </div>
+
+          <!-- Right: About This Blog -->
+          <div class="lg:w-2/3">
+            <GlassCard class="p-6 h-full">
+              <h2 class="text-xl font-semibold mb-4" style="color: var(--season-primary);">
+                About This Blog
+              </h2>
+              <div class="space-y-4 text-sm leading-relaxed" style="color: var(--season-text);">
+                <p>
+                  Welcome to {profile.siteName}. This is a personal blog where I share my thoughts,
+                  experiences, and reflections on various topics.
+                </p>
+                <p>
+                  This blog supports both light and dark mode — try toggling the theme with the
+                  button in the header to find your preferred reading experience.
+                </p>
+                <p>
+                  Feel free to explore the articles and reach out through any of the links
+                  in the header. I'd love to connect!
+                </p>
+              </div>
+            </GlassCard>
+          </div>
+        </div>
+      </GlassCard>
+
+      <!-- Skills -->
+      <GlassCard class="p-6" data-animate data-animate-delay="2">
+        <h2 class="text-xl font-semibold mb-6" style="color: var(--season-primary);">
+          Skills
+        </h2>
+        <div class="grid gap-5 sm:grid-cols-2">
+          {skills.map((skill) => (
+            <GlassCard class="p-5">
+              <h3 class="text-sm font-semibold mb-4 flex items-center gap-2" style="color: var(--season-text);">
+                <span class="w-2.5 h-2.5 rounded-full shrink-0" style={`background: ${skill.color};`}></span>
+                {skill.category}
+              </h3>
+              <div class="flex flex-col gap-3">
+                {skill.items.map((item) => (
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs font-medium w-1/3 shrink-0 text-right" style="color: var(--season-text-muted);">
+                      {item.name}
+                    </span>
+                    <div class="w-2/3 h-2.5 rounded-full overflow-hidden" style="background: var(--season-glass-bg); border: 1px solid var(--season-glass-border);">
+                      <div
+                        class="skill-bar h-full rounded-full transition-all duration-700 ease-out"
+                        style={`width: ${item.level}%; background: ${skill.color};`}
+                        data-level={item.level}
+                      >
+                      </div>
+                    </div>
+                    <span class="text-xs font-medium w-8 shrink-0" style="color: var(--season-text-muted);">
+                      {item.level}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </GlassCard>
+          ))}
+        </div>
+      </GlassCard>
+
+      <!-- Get in Touch -->
+      {(profile.social.email || profile.social.github) && (
+        <GlassCard class="p-8" data-animate data-animate-delay="3">
+          <h2 class="text-xl font-semibold mb-4" style="color: var(--season-primary);">
+            Get in Touch
+          </h2>
+          <div class="space-y-3">
+            {profile.social.email && (
+              <a
+                href={`mailto:${profile.social.email}`}
+                class="flex items-center gap-3 text-sm transition-colors duration-200"
+                style="color: var(--season-text-muted);"
+              >
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+                <span>{profile.social.email}</span>
+              </a>
+            )}
+            {profile.social.github && (
+              <a
+                href={profile.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-3 text-sm transition-colors duration-200"
+                style="color: var(--season-text-muted);"
+              >
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            )}
+          </div>
+        </GlassCard>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .skill-bar {
+    width: 0% !important;
+    transition: width 0.8s ease-out;
+  }
+  .skill-bar.animated {
+    width: var(--target-width) !important;
+  }
+</style>
+
+<script is:inline>
+  function initSkillBars() {
+    var bars = document.querySelectorAll('.skill-bar');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var bar = e.target;
+          var level = bar.getAttribute('data-level');
+          bar.style.setProperty('--target-width', level + '%');
+          // Small delay for visual effect
+          setTimeout(function() {
+            bar.classList.add('animated');
+          }, 100);
+          observer.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.1 });
+    bars.forEach(function(bar) { observer.observe(bar); });
+  }
+  initSkillBars();
+  document.addEventListener('astro:after-swap', initSkillBars);
+</script>

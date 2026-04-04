@@ -1,0 +1,48 @@
+[
+  {
+    "category": "Programming Languages",
+    "color": "#3b82f6",
+    "items": [
+      { "name": "JavaScript", "level": 85 },
+      { "name": "TypeScript", "level": 80 },
+      { "name": "Python", "level": 75 }
+    ]
+  },
+  {
+    "category": "Frontend",
+    "color": "#8b5cf6",
+    "items": [
+      { "name": "React", "level": 80 },
+      { "name": "Vue.js", "level": 65 },
+      { "name": "HTML / CSS", "level": 90 },
+      { "name": "Tailwind CSS", "level": 75 }
+    ]
+  },
+  {
+    "category": "Backend",
+    "color": "#10b981",
+    "items": [
+      { "name": "Node.js", "level": 75 },
+      { "name": "Express", "level": 70 },
+      { "name": "FastAPI", "level": 60 }
+    ]
+  },
+  {
+    "category": "Databases",
+    "color": "#f59e0b",
+    "items": [
+      { "name": "PostgreSQL", "level": 70 },
+      { "name": "MongoDB", "level": 65 },
+      { "name": "Redis", "level": 50 }
+    ]
+  },
+  {
+    "category": "DevOps & Tools",
+    "color": "#ef4444",
+    "items": [
+      { "name": "Git", "level": 85 },
+      { "name": "Docker", "level": 60 },
+      { "name": "Linux", "level": 65 }
+    ]
+  }
+]

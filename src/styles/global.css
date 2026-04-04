@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "./seasons.css";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: var(--season-primary);
+  --color-primary-light: var(--season-primary-light);
+  --color-secondary: var(--season-secondary);
+  --color-accent: var(--season-accent);
+  --color-surface: var(--season-surface);
+  --color-bg: var(--season-bg);
+  --color-text: var(--season-text);
+  --color-text-muted: var(--season-text-muted);
+  --color-border: var(--season-border);
+  --color-glass-bg: var(--season-glass-bg);
+  --color-glass-border: var(--season-glass-border);
+}
+
+html {
+  scroll-behavior: smooth;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Inter', 'Noto Sans TC', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: var(--season-bg-gradient);
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--season-text);
+  min-height: 100vh;
+  transition: color 0.3s ease;
+}
+
+/* Scroll-triggered animation base */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-animate].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays for lists */
+[data-animate-delay="1"] { transition-delay: 0.1s; }
+[data-animate-delay="2"] { transition-delay: 0.2s; }
+[data-animate-delay="3"] { transition-delay: 0.3s; }
+[data-animate-delay="4"] { transition-delay: 0.4s; }
+[data-animate-delay="5"] { transition-delay: 0.5s; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Prose styling */
+.prose {
+  --tw-prose-body: var(--season-text);
+  --tw-prose-headings: var(--season-primary);
+  --tw-prose-links: var(--season-primary);
+  --tw-prose-bold: var(--season-text);
+  --tw-prose-code: var(--season-primary);
+  --tw-prose-quotes: var(--season-text-muted);
+  --tw-prose-quote-borders: var(--season-primary-light);
+  --tw-prose-hr: var(--season-border);
+  --tw-prose-pre-bg: var(--season-code-bg);
+  --tw-prose-pre-code: var(--season-text);
+}
+
+.prose img {
+  border-radius: 1rem;
+  border: 1px solid var(--season-glass-border);
+  box-shadow: var(--season-glass-shadow);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose a {
+  text-decoration-color: var(--season-primary-light);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.prose a:hover {
+  text-decoration-color: var(--season-primary);
+}
+
+.prose code {
+  background: var(--season-code-bg);
+  backdrop-filter: blur(8px);
+  padding: 0.15em 0.4em;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+  border: 1px solid var(--season-glass-border);
+}
+
+.prose pre {
+  background: var(--season-code-bg) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--season-glass-border);
+  border-radius: 1rem;
+  box-shadow: var(--season-glass-shadow);
+}
+
+.prose blockquote {
+  border-left-color: var(--season-primary-light);
+}
+
+/* Selection color */
+::selection {
+  background: var(--season-primary-light);
+  color: var(--season-text);
+}

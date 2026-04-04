@@ -1,0 +1,48 @@
+---
+import ArticleCard from './ArticleCard.astro';
+
+interface Article {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    date: Date;
+    tags?: string[];
+    draft?: boolean;
+  };
+}
+
+interface Props {
+  articles: Article[];
+  limit?: number;
+}
+
+const { articles, limit } = Astro.props;
+
+function toSlug(id: string) {
+  return id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+}
+
+const displayed = limit ? articles.slice(0, limit) : articles;
+---
+
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {displayed.map((article, index) => (
+    <ArticleCard
+      title={article.data.title}
+      description={article.data.description}
+      date={article.data.date}
+      tags={article.data.tags}
+      slug={toSlug(article.id)}
+      index={index}
+    />
+  ))}
+</div>
+
+{displayed.length === 0 && (
+  <div class="text-center py-12" data-animate>
+    <p class="text-lg" style="color: var(--season-text-muted);">
+      No articles yet. Stay tuned!
+    </p>
+  </div>
+)}

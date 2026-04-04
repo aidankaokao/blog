@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Project Name",
+    "description": "A brief description of what this project does and the technologies used.",
+    "url": "https://github.com/your-username/project",
+    "tags": ["TypeScript", "React"]
+  },
+  {
+    "title": "Another Project",
+    "description": "Another project description. Explain the purpose and key features.",
+    "url": "https://example.com",
+    "tags": ["Python", "FastAPI"]
+  }
+]
