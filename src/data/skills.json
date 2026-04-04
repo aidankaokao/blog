@@ -1,48 +1,45 @@
 [
   {
-    "category": "Programming Languages",
+    "category": "資料科學",
     "color": "#3b82f6",
     "items": [
-      { "name": "JavaScript", "level": 85 },
-      { "name": "TypeScript", "level": 80 },
-      { "name": "Python", "level": 75 }
+      { "name": "Python", "level": 65 },
+      { "name": "數據處理", "level": 80 },
+      { "name": "數據分析", "level": 75 },
+      { "name": "可視化", "level": 85 }
     ]
   },
   {
-    "category": "Frontend",
+    "category": "資料庫",
     "color": "#8b5cf6",
     "items": [
-      { "name": "React", "level": 80 },
-      { "name": "Vue.js", "level": 65 },
-      { "name": "HTML / CSS", "level": 90 },
-      { "name": "Tailwind CSS", "level": 75 }
-    ]
-  },
-  {
-    "category": "Backend",
-    "color": "#10b981",
-    "items": [
-      { "name": "Node.js", "level": 75 },
-      { "name": "Express", "level": 70 },
-      { "name": "FastAPI", "level": 60 }
-    ]
-  },
-  {
-    "category": "Databases",
-    "color": "#f59e0b",
-    "items": [
-      { "name": "PostgreSQL", "level": 70 },
-      { "name": "MongoDB", "level": 65 },
-      { "name": "Redis", "level": 50 }
+      { "name": "PostgreSQL", "level": 90 },
+      { "name": "MSSQL", "level": 65 },
+      { "name": "InfluxDB", "level": 90 },
+      { "name": "MinIO", "level": 75 }
     ]
   },
   {
     "category": "DevOps & Tools",
-    "color": "#ef4444",
+    "color": "#10b981",
     "items": [
-      { "name": "Git", "level": 85 },
-      { "name": "Docker", "level": 60 },
-      { "name": "Linux", "level": 65 }
+      { "name": "Git", "level": 55 },
+      { "name": "Docker", "level": 70 },
+      { "name": "Linux", "level": 60 }
     ]
+  },
+  {
+    "category": "AI",
+    "color": "#f59e0b",
+    "items": [
+      { "name": "機器學習", "level": 70 },
+      { "name": "Gen AI", "level": 65 },
+      { "name": "AI Agent", "level": 75 }
+    ]
+  },
+  {
+    "category": "Others",
+    "color": "#ef4444",
+    "items": [{ "name": "English", "level": 60 }]
   }
 ]
