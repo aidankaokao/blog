@@ -1,13 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArticleList from '../components/ArticleList.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 
 const articles = (await getCollection('articles'))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const allTags = [...new Set(articles.flatMap((a) => a.data.tags || []))].sort();
+
+function toSlug(id: string) {
+  return id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+}
+
+// Strip markdown syntax to get plain text for search
+function stripMd(md: string) {
+  return md
+    .replace(/!\[.*?\]\(.*?\)/g, '')
+    .replace(/\[([^\]]*)\]\(.*?\)/g, '$1')
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/[*_~`>]/g, '')
+    .replace(/\n+/g, ' ')
+    .trim();
+}
 ---
 
 <BaseLayout>
@@ -21,9 +36,25 @@ const allTags = [...new Set(articles.flatMap((a) => a.data.tags || []))].sort();
       </p>
     </div>
 
+    <!-- Search box -->
+    <div class="mb-6" data-animate data-animate-delay="1">
+      <div class="relative max-w-md">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style="color: var(--season-text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="搜尋文章標題或內容..."
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200"
+          style="background: var(--season-glass-bg); border: 1px solid var(--season-glass-border); color: var(--season-text); backdrop-filter: blur(12px);"
+        />
+      </div>
+    </div>
+
     <!-- Tag filter -->
     {allTags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-8" data-animate data-animate-delay="1">
+      <div class="flex flex-wrap gap-2 mb-8" data-animate data-animate-delay="2">
         <button
           class="tag-filter active px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200"
           data-tag="all"
@@ -42,7 +73,29 @@ const allTags = [...new Set(articles.flatMap((a) => a.data.tags || []))].sort();
     )}
 
     <div id="articles-grid">
-      <ArticleList articles={articles} />
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {articles.map((article, index) => (
+          <div
+            data-search-title={article.data.title.toLowerCase()}
+            data-search-description={(article.data.description || '').toLowerCase()}
+            data-search-body={stripMd(article.body || '').toLowerCase().slice(0, 500)}
+          >
+            <ArticleCard
+              title={article.data.title}
+              description={article.data.description}
+              date={article.data.date}
+              tags={article.data.tags}
+              slug={toSlug(article.id)}
+              index={index}
+            />
+          </div>
+        ))}
+      </div>
+      <div id="no-results" class="hidden text-center py-12">
+        <p class="text-lg" style="color: var(--season-text-muted);">
+          找不到符合的文章
+        </p>
+      </div>
     </div>
   </div>
 </BaseLayout>
@@ -55,6 +108,13 @@ const allTags = [...new Set(articles.flatMap((a) => a.data.tags || []))].sort();
     border: 1px solid var(--season-glass-border);
     cursor: pointer;
   }
+  #search-input:focus {
+    border-color: var(--season-primary);
+    box-shadow: 0 0 0 3px rgba(var(--season-primary), 0.1);
+  }
+  #search-input::placeholder {
+    color: var(--season-text-muted);
+  }
   .tag-filter:hover,
   .tag-filter.active {
     background: var(--season-primary);
@@ -64,30 +124,66 @@ const allTags = [...new Set(articles.flatMap((a) => a.data.tags || []))].sort();
 </style>
 
 <script is:inline>
-  function initTagFilter() {
+  function initArticleFilter() {
     var buttons = document.querySelectorAll('.tag-filter');
-    var cards = document.querySelectorAll('#articles-grid a[href]');
+    var wrappers = document.querySelectorAll('#articles-grid [data-search-title]');
+    var searchInput = document.getElementById('search-input');
+    var noResults = document.getElementById('no-results');
+    var activeTag = 'all';
+    var searchQuery = '';
+
+    function filterArticles() {
+      var visibleCount = 0;
+      wrappers.forEach(function(wrapper) {
+        var card = wrapper.querySelector('a[href]');
+        if (!card) return;
+
+        // Tag match
+        var tagMatch = true;
+        if (activeTag !== 'all') {
+          var tagEls = card.querySelectorAll('span.inline-flex');
+          tagMatch = Array.from(tagEls).some(function(el) {
+            return el.textContent.trim() === activeTag;
+          });
+        }
+
+        // Search match
+        var searchMatch = true;
+        if (searchQuery) {
+          var title = wrapper.getAttribute('data-search-title') || '';
+          var desc = wrapper.getAttribute('data-search-description') || '';
+          var body = wrapper.getAttribute('data-search-body') || '';
+          searchMatch = title.indexOf(searchQuery) !== -1 ||
+                        desc.indexOf(searchQuery) !== -1 ||
+                        body.indexOf(searchQuery) !== -1;
+        }
+
+        var visible = tagMatch && searchMatch;
+        wrapper.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
 
     buttons.forEach(function(btn) {
       btn.addEventListener('click', function() {
         buttons.forEach(function(b) { b.classList.remove('active'); });
         btn.classList.add('active');
-
-        var tag = btn.getAttribute('data-tag');
-        cards.forEach(function(card) {
-          if (tag === 'all') {
-            card.style.display = '';
-          } else {
-            var tagEls = card.querySelectorAll('span.inline-flex');
-            var hasTag = Array.from(tagEls).some(function(el) {
-              return el.textContent.trim() === tag;
-            });
-            card.style.display = hasTag ? '' : 'none';
-          }
-        });
+        activeTag = btn.getAttribute('data-tag');
+        filterArticles();
       });
     });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        searchQuery = searchInput.value.toLowerCase().trim();
+        filterArticles();
+      });
+    }
   }
-  initTagFilter();
-  document.addEventListener('astro:after-swap', initTagFilter);
+  initArticleFilter();
+  document.addEventListener('astro:after-swap', initArticleFilter);
 </script>
